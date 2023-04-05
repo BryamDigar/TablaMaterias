@@ -39,8 +39,8 @@ export class TablaCursos extends React.Component{
     this.setState({modalInsertar: true});
   }
 
-  mostrarModalEditar=()=>{
-    this.setState({modalEditar: true});
+  mostrarModalEditar=(registro)=>{
+    this.setState({modalEditar: true, form: registro});
   }
 
 
@@ -60,7 +60,21 @@ export class TablaCursos extends React.Component{
     this.setState({courseList : lista, modalInsertar: false});
   }
 
-
+  editar=(dato)=>{
+    let contador = 0;
+    let lista=this.state.courseList;
+    
+    lista.map((registro)=>{
+      if(dato.id==registro.id){
+        lista[contador].id=dato.id;
+        lista[contador].nombre=dato.nombre;
+      }
+      contador++;
+    });
+  
+    this.setState({courseList: lista, modalEditar: false});
+  }
+  
   render(){
     return (
       <>
@@ -80,8 +94,9 @@ export class TablaCursos extends React.Component{
             <tr>
               <td>{elemento.id}</td>
               <td>{elemento.nombre}</td>
-              <td><Button color="danger">Eliminar</Button></td>
-              <td><Button color="primary" onClick={()=>this.mostrarModalEditar()}>Editar</Button></td>
+              <td><Button color="danger" >Eliminar</Button></td>
+              <td><Button color="primary" onClick={()=>this.mostrarModalEditar(elemento)}>Editar</Button>
+              {" "}</td>
             </tr>
           ))}
         </tbody>
@@ -118,24 +133,24 @@ export class TablaCursos extends React.Component{
     <Modal id="botonEditarPantalla1" isOpen= {this.state.modalEditar}>
         <ModalHeader>
           <div>
-            <h3>Digita el ID del curso a editar:</h3> 
+            <h3>Edición del curso:</h3> 
           </div>
         </ModalHeader>          
 
         <ModalBody>
             <FormGroup>
               <label>ID:</label>
-              {"   "}<input className="form" name="id" type="text" onChange={this.handleChange} />
+              {"   "}<input className="form-control" name="id" type="text" onChange={this.handleChange} value={this.state.form.id} />
             </FormGroup>
 
             <FormGroup>
               <label>Nombre:</label>
-              {"   "}<input className="form" name="nombre" type="text" onChange={this.handleChange} />
+              {"   "}<input className="form" name="nombre" type="text" onChange={this.handleChange} value={this.state.form.nombre}/>
             </FormGroup>
         </ModalBody>
 
         <ModalFooter>
-            <Button color="primary">Insertar</Button>
+            <Button color="primary" onClick={()=>this.editar(this.state.form)}>Actualizar</Button>
             <Button color="danger" onClick={()=>this.ocultarModalEditar()}>Cancelar</Button>
         </ModalFooter>
     </Modal>    
