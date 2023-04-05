@@ -74,7 +74,22 @@ export class TablaCursos extends React.Component{
   
     this.setState({courseList: lista, modalEditar: false});
   }
-  
+
+  eliminar=(dato)=>{
+    let opcion=window.confirm("¿Esta seguro de eliminar este curso?");
+    if(opcion){
+      let contador=0;
+      let lista = this.state.courseList;
+      lista.map((registro)=>{
+        if(registro.id==dato.id){
+          lista.splice(contador,1)
+        }
+        contador++;
+      });
+      this.setState({courseList: lista});
+    }
+  }
+
   render(){
     return (
       <>
@@ -94,7 +109,7 @@ export class TablaCursos extends React.Component{
             <tr>
               <td>{elemento.id}</td>
               <td>{elemento.nombre}</td>
-              <td><Button color="danger" >Eliminar</Button></td>
+              <td><Button color="danger" onClick={()=>this.eliminar(elemento)}>Eliminar</Button></td>
               <td><Button color="primary" onClick={()=>this.mostrarModalEditar(elemento)}>Editar</Button>
               {" "}</td>
             </tr>
