@@ -25,7 +25,9 @@ export class TablaCursos extends React.Component{
       <>
       <Container>
       <br />
-      <Button color="primary">Insertar Nuevo Curso</Button>
+      <Button color="success">Insertar Nuevo Curso</Button>{"   "}
+      <Button color="danger">Eliminar Curso</Button>{"   "}
+      <Button color="primary">Editar Curso</Button>{"   "}
       <br /><br />
       </Container>
   
@@ -39,10 +41,6 @@ export class TablaCursos extends React.Component{
             <tr>
               <td>{elemento.id}</td>
               <td>{elemento.nombre}</td>
-              <td><Button color="primary">Editar</Button>{"  "}
-              <Button color="danger">Eliminar</Button>
-              </td>
-
             </tr>
           ))}
   
