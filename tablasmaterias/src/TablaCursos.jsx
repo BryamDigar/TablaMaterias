@@ -52,6 +52,15 @@ export class TablaCursos extends React.Component{
     this.setState({modalEditar: false});
   }
 
+  insertar= ()=>{
+    let valorNuevo = {...this.state.form};
+    valorNuevo.id = this.state.courseList.length+1;
+    let lista = this.state.courseList;
+    lista.push(valorNuevo);
+    this.setState({courseList : lista, modalInsertar: false});
+  }
+
+
   render(){
     return (
       <>
@@ -100,7 +109,7 @@ export class TablaCursos extends React.Component{
         </ModalBody>
 
         <ModalFooter>
-            <Button color="primary">Insertar</Button>
+            <Button color="primary" onClick={()=>this.insertar()}>Insertar</Button>
             <Button color="danger" onClick={()=>this.ocultarModalInsertar()}>Cancelar</Button>
         </ModalFooter>
 
