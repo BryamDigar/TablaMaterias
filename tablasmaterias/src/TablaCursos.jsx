@@ -54,10 +54,46 @@ export class TablaCursos extends React.Component{
 
   insertar= ()=>{
     let valorNuevo = {...this.state.form};
-    valorNuevo.id = this.state.courseList.length+1;
     let lista = this.state.courseList;
+
+    let contador = 0;
+    let datotemp = 0;
+
+    lista.map(()=>{
+
+      let datotemp2 = lista[contador].id;
+
+      if (datotemp < datotemp2){
+        datotemp = datotemp2;
+      }
+
+      contador++;
+    })
+
+    valorNuevo.id = datotemp+1;
     lista.push(valorNuevo);
     this.setState({courseList : lista, modalInsertar: false});
+  }
+
+  greatestnumber=()=>{
+    let valorNuevo = {...this.state.form};
+    let lista = this.state.courseList;
+
+    let contador = 0;
+    let datotemp = 0;
+
+    lista.map(()=>{
+
+      let datotemp2 = lista[contador].id;
+
+      if (datotemp < datotemp2){
+        datotemp = datotemp2;
+      }
+
+      contador++;
+    })
+
+    return valorNuevo.id = datotemp+1;
   }
 
   editar=(dato)=>{
@@ -129,7 +165,7 @@ export class TablaCursos extends React.Component{
         <ModalBody>
             <FormGroup>
               <label>ID:</label>
-              <input className="form" readOnly type="text" value={this.state.courseList.length+1}/>
+              <input className="form" readOnly type="text" value={this.greatestnumber()}/>
             </FormGroup>
 
             <FormGroup>
